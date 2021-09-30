@@ -1,0 +1,1 @@
+java -jar JFlex-1.4.1.jar javaTokens.jflex
