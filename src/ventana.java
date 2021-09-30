@@ -1,6 +1,11 @@
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
@@ -18,6 +23,11 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  */
 public class ventana extends javax.swing.JFrame {
 
+    JFileChooser select = new JFileChooser();
+    File file;
+    FileInputStream in;
+    FileOutputStream out;
+
     /**
      * Creates new form ventana
      */
@@ -25,16 +35,17 @@ public class ventana extends javax.swing.JFrame {
         initComponents();
         RSyntax();
     }
+    RSyntaxTextArea textArea = new RSyntaxTextArea();
 
     public void RSyntax() {
-        RSyntaxTextArea textArea = new RSyntaxTextArea();
+
         textArea.setFont(new Font("Monospaced", Font.PLAIN, 20));
         try {
-        
-        AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
-        atmf.putMapping("text/myLanguage", "javaTokenJFlex.javaTokens");
-        textArea.setSyntaxEditingStyle("text/myLanguage");}
-        catch(Exception e){
+
+            AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
+            atmf.putMapping("text/myLanguage", "javaTokenJFlex.javaTokens");
+            textArea.setSyntaxEditingStyle("text/myLanguage");
+        } catch (Exception e) {
         }
         RTextScrollPane sp = new RTextScrollPane(textArea);
         sp.getGutter().setLineNumberColor(Color.RED);
@@ -52,30 +63,181 @@ public class ventana extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setLayout(new java.awt.CardLayout());
+
+        jButton1.setText("Nuevo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Guardar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Correr");
+
+        jButton4.setText("Abrir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Guardar como");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)
+                        .addGap(90, 90, 90)
+                        .addComponent(jButton3)
+                        .addGap(0, 290, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (file==null) {
+            if (select.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
+                file = select.getSelectedFile();
+                if (file.getName().endsWith("java") || file.getName().endsWith("txt")) {
+                    String content = textArea.getText();
+                    String msg = saveFile(file, content);
+                    if (msg != null) {
+                        JOptionPane.showMessageDialog(null, msg);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Archivo no compatible");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Guardar archivo");
+                }
+            }
+        } else {
+            String content = textArea.getText();
+            String msg = saveFile(file, content);
+            if (msg != null) {
+                JOptionPane.showMessageDialog(null, msg);
+            } else {
+                JOptionPane.showMessageDialog(null, "Archivo no compatible");
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+    //method to open File
+    public String openFile(File file) {
+        String opened = "";
+        try {
+            in = new FileInputStream(file);
+            int ascci;
+            while ((ascci = in.read()) != -1) {
+                char caracter = (char) ascci;
+                opened += caracter;
+            }
+        } catch (Exception e) {
+        }
+        return opened;
+    }
+
+    //Method to SaveFile
+    public String saveFile(File file, String content) {
+        String msg = null;
+        try {
+            out = new FileOutputStream(file);
+            byte[] bytxt = content.getBytes();
+            out.write(bytxt);
+            msg = "File saved";
+        } catch (Exception e) {
+        }
+        return msg;
+    }
+
+    //Button open
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //on click button open
+
+        if (select.showDialog(null, "Abrir ") == JFileChooser.APPROVE_OPTION) {
+            file = select.getSelectedFile();
+            if (file.canRead()) {
+                if (file.getName().endsWith("java") || file.getName().endsWith("txt")) {
+                    String content = openFile(file);
+                    textArea.setText(content);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Archivo no compatible");
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        if (select.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
+            file = select.getSelectedFile();
+            if (file.getName().endsWith("java") || file.getName().endsWith("txt")) {
+                String content = textArea.getText();
+                String msg = saveFile(file, content);
+                if (msg != null) {
+                    JOptionPane.showMessageDialog(null, msg);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Archivo no compatible");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Guardar archivo");
+            }
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        file=null;
+        textArea.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,6 +275,11 @@ public class ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

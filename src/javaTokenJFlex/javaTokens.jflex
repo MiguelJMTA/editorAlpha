@@ -203,21 +203,24 @@ Identifier            = ({IdentifierStart}{IdentifierPart}*)
    /* Keywords */   
    "do" |   
    "for" |   
-   "if" |   
+   "if" |
+   "else"|
+   "break"|
+   "switch"|
+   "case"|
    "while"      { addToken(Token.RESERVED_WORD); }   
    
    /* Data types */   
-   "byte" |   
-   "char" |   
-   "double" |   
-   "float" |   
-   "int"      { addToken(Token.DATA_TYPE); }   
+   "int" |
+   "double" |
+   "float" |
+   "char" |
+   "boolean"|
+   "string"      { addToken(Token.DATA_TYPE); }
    
    /* Functions */   
-   "fopen" |   
-   "fread" |   
-   "printf" |   
-   "scanf"      { addToken(Token.FUNCTION); }   
+   "print" |
+   "scan"      { addToken(Token.FUNCTION); }
    
    {Identifier}            { addToken(Token.IDENTIFIER); }   
    
