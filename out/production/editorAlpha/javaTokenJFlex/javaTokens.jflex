@@ -207,6 +207,7 @@ Identifier            = ({IdentifierStart}{IdentifierPart}*)
    "else"|
    "break"|
    "switch"|
+   "case"|
    "while"      { addToken(Token.RESERVED_WORD); }   
    
    /* Data types */   
@@ -219,7 +220,7 @@ Identifier            = ({IdentifierStart}{IdentifierPart}*)
    
    /* Functions */   
    "print" |
-   "scann"      { addToken(Token.FUNCTION); }
+   "read"      { addToken(Token.FUNCTION); }
    
    {Identifier}            { addToken(Token.IDENTIFIER); }   
    

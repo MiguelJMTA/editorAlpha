@@ -6,10 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
-import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
-import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
+
+import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 /*
@@ -17,8 +15,8 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
- *
  * @author josem
  */
 public class ventana extends javax.swing.JFrame {
@@ -35,6 +33,7 @@ public class ventana extends javax.swing.JFrame {
         initComponents();
         RSyntax();
     }
+
     RSyntaxTextArea textArea = new RSyntaxTextArea();
 
     public void RSyntax() {
@@ -48,7 +47,21 @@ public class ventana extends javax.swing.JFrame {
         } catch (Exception e) {
         }
         RTextScrollPane sp = new RTextScrollPane(textArea);
-        sp.getGutter().setLineNumberColor(Color.RED);
+        sp.getGutter().setLineNumberColor(Color.BLUE);
+        SyntaxScheme scheme = textArea.getSyntaxScheme();
+        scheme.getStyle(Token.RESERVED_WORD).foreground = Color.pink;
+        scheme.getStyle(Token.DATA_TYPE).foreground = Color.blue;
+        scheme.getStyle(Token.FUNCTION).foreground = Color.orange;
+        scheme.getStyle(Token.OPERATOR).foreground = Color.RED;
+        scheme.getStyle(Token.LITERAL_NUMBER_DECIMAL_INT).foreground = Color.CYAN;
+        scheme.getStyle(Token.ERROR_CHAR).underline = true;
+        scheme.getStyle(Token.ERROR_CHAR).foreground = Color.RED;
+        scheme.getStyle(Token.ERROR_IDENTIFIER).underline = true;
+        scheme.getStyle(Token.ERROR_IDENTIFIER).foreground = Color.RED;
+        scheme.getStyle(Token.ERROR_NUMBER_FORMAT).underline = true;
+        scheme.getStyle(Token.ERROR_NUMBER_FORMAT).foreground = Color.RED;
+        scheme.getStyle(Token.ERROR_STRING_DOUBLE).underline = true;
+        scheme.getStyle(Token.ERROR_STRING_DOUBLE).foreground = Color.RED;
         sp.getGutter().setLineNumberFont(new Font("Monospaced", Font.BOLD, 20));
         jPanel1.add(sp);
     }
@@ -107,37 +120,37 @@ public class ventana extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)
-                        .addGap(90, 90, 90)
-                        .addComponent(jButton3)
-                        .addGap(0, 290, Short.MAX_VALUE)))
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jButton1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton6)
+                                                .addGap(90, 90, 90)
+                                                .addComponent(jButton3)
+                                                .addGap(0, 290, Short.MAX_VALUE)))
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton1)
+                                        .addComponent(jButton2)
+                                        .addComponent(jButton3)
+                                        .addComponent(jButton4)
+                                        .addComponent(jButton6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         pack();
@@ -145,7 +158,7 @@ public class ventana extends javax.swing.JFrame {
 
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (file==null) {
+        if (file == null) {
             if (select.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
                 file = select.getSelectedFile();
                 if (file.getName().endsWith("java") || file.getName().endsWith("txt")) {
@@ -170,6 +183,7 @@ public class ventana extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
     //method to open File
     public String openFile(File file) {
         String opened = "";
@@ -235,7 +249,7 @@ public class ventana extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        file=null;
+        file = null;
         textArea.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -246,7 +260,7 @@ public class ventana extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

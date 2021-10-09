@@ -220,7 +220,7 @@ Identifier            = ({IdentifierStart}{IdentifierPart}*)
    
    /* Functions */   
    "print" |
-   "scan"      { addToken(Token.FUNCTION); }
+   "read"      { addToken(Token.FUNCTION); }
    
    {Identifier}            { addToken(Token.IDENTIFIER); }   
    
